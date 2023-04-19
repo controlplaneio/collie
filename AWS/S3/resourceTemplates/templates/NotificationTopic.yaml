@@ -1,0 +1,35 @@
+apiVersion: sns.aws.crossplane.io/v1beta1
+kind: Topic
+metadata:
+  name: notification-bucket-topic
+spec:
+  forProvider:
+    displayName: notification-bucket-topic
+    name: notification-bucket-topic
+    region: {{ .Values.region }}
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Id": "example-ID",
+        "Statement": [
+            {
+                "Sid": "Example SNS topic policy",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "s3.amazonaws.com"
+                },
+                "Action": [
+                    "SNS:Publish"
+                ],
+                "Resource": "arn:aws:sns:{{ .Values.region }}:{{ .Values.accountID }}:notification-bucket-topic",
+                "Condition": {
+                    "ArnLike": {
+                        "aws:SourceArn": "arn:aws:s3:*:*:notification-bucket-{{ .Values.suffix }}"
+                    },
+                    "StringEquals": {
+                        "aws:SourceAccount": "{{ .Values.accountID }}"
+                    }
+                }
+            }
+          ]
+        }

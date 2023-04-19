@@ -1,0 +1,88 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-bucket-level-public-access-prohibited
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-level-public-access-block-public-acls
+      validate:
+        message: blockPublicACLs must be true
+        pattern:
+          spec:
+            forProvider:
+              publicAccessBlockConfiguration:
+                blockPublicAcls: true
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-level-public-access-block-public-policy
+      validate:
+        message: blockPublicPolicy must be true
+        pattern:
+          spec:
+            forProvider:
+              publicAccessBlockConfiguration:
+                blockPublicPolicy: true
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-level-public-access-ignore-public-acls
+      validate:
+        message: ignorePublicACLs must be true
+        pattern:
+          spec:
+            forProvider:
+              publicAccessBlockConfiguration:
+                ignorePublicAcls: true
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-level-public-access-restrict-public-buckets
+      validate:
+        message: restrictPublicBuckets must be true
+        pattern:
+          spec:
+            forProvider:
+              publicAccessBlockConfiguration:
+                restrictPublicBuckets: true
+  validationFailureAction: enforce
+status:
+  autogen: {}
+  ready: false
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 0
+    verifyimages: 0

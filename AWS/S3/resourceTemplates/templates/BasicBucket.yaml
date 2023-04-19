@@ -1,0 +1,13 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: basic-bucket
+  annotations:
+    # This will be the actual bucket name. It must be globally unique, so you
+    # probably want to change it before trying to apply this example.
+    crossplane.io/external-name: dci-basic-bucket-{{ .Values.suffix }}
+spec:
+  forProvider:
+    acl: public-read
+    locationConstraint: {{ .Values.region }}
+    objectOwnership: BucketOwnerPreferred

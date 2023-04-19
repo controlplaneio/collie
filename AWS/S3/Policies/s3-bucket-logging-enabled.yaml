@@ -1,0 +1,44 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-bucket-logging-enabled
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-logging-enabled
+      validate:
+        anyPattern:
+          - spec:
+              forProvider:
+                loggingConfiguration:
+                  targetBucket: '*'
+          - spec:
+              forProvider:
+                loggingConfiguration:
+                  targetBucketRef:
+                    name: '*'
+          - spec:
+              forProvider:
+                loggingConfiguration:
+                  targetBucketSelector:
+                    matchLabels: '*'
+        message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+  validationFailureAction: enforce
+status:
+  autogen: {}
+  ready: false
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 0
+    verifyimages: 0

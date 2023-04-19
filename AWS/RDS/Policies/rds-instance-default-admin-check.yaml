@@ -1,0 +1,67 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: rds-instance-default-admin-check
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - database.aws.crossplane.io/v1beta1/RDSInstance
+      mutate: {}
+      name: rds-admin-not-default
+      validate:
+        message: rds instance default admin must be changed. Set spec.forProvider.masterUsername
+        pattern:
+          spec:
+            forProvider:
+              masterUsername: '!default'
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - database.aws.crossplane.io/v1beta1/RDSInstance
+      mutate: {}
+      name: rds-admin-not-admin
+      validate:
+        message: rds instance default admin must be changed. Set spec.forProvider.masterUsername
+        pattern:
+          spec:
+            forProvider:
+              masterUsername: '!admin'
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - database.aws.crossplane.io/v1beta1/RDSInstance
+      mutate: {}
+      name: rds-admin-not-postgres
+      validate:
+        message: rds instance default admin must be changed. Set spec.forProvider.masterUsername
+        pattern:
+          spec:
+            forProvider:
+              masterUsername: '!postgres'
+  validationFailureAction: enforce
+status:
+  autogen: {}
+  ready: false
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 0
+    verifyimages: 0

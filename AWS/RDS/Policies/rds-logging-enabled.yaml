@@ -1,0 +1,34 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: rds-logging-enabled
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - RDSInstance
+      mutate: {}
+      name: rds-logging-enabled
+      validate:
+        message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+        pattern:
+          spec:
+            forProvider:
+              cloudwatchLogsExportConfiguration:
+                enableLogTypes: '*'
+  validationFailureAction: enforce
+status:
+  autogen: {}
+  ready: false
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 0
+    verifyimages: 0

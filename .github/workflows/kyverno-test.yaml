@@ -1,0 +1,39 @@
+name: Kyverno Test
+
+on: push
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 'stable'
+      - name: generate test secrets
+        uses: docker://docker.io/mikefarah/yq:4.32.1-githubaction
+        with:
+          entrypoint: /bin/sh
+          args: |
+            -c "cd AWS/S3/resourceTemplates && \
+              yq eval '(.accountID = \"1122334455667788\") |
+              (.replication.bucketARN = \"arn:aws:s3:::replication-bucket\") |
+              (.loggingBucket = \"logging-bucket\") |
+              (.suffix = \"aex65b\") |
+              (.replication.keyARN = \"awn:aws:kms:1122334455667788:key/test-key\")' \
+              values.secret.example.yaml > values.secret.yaml && \
+              cd ../../RDS/resourceTemplates && \
+              yq eval '(.accountID = 1122334455667788)' \
+              values.secret.example.yaml > values.secret.yaml"
+      - uses: azure/setup-helm@v3
+        with:
+          version: 'v3.10.3'
+      - name: install kyverno
+        run: |
+          curl -LO https://github.com/kyverno/kyverno/releases/download/v1.9.2/kyverno-cli_v1.9.2_linux_x86_64.tar.gz &&
+          tar -xvf kyverno-cli_v1.9.2_linux_x86_64.tar.gz &&
+          mv kyverno /usr/local/bin
+      - name: run tests
+        run: make unit-test

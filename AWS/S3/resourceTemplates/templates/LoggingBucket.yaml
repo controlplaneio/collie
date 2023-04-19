@@ -1,0 +1,21 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: logging-bucket
+  annotations:
+    # This will be the actual bucket name. It must be globally unique, so you
+    # probably want to change it before trying to apply this example.
+    crossplane.io/external-name: logging-bucket-{{ .Values.suffix }}
+spec:
+  forProvider:
+    loggingConfiguration:
+      targetBucket: {{ .Values.loggingBucket }}
+      targetPrefix: logs
+    acl: private
+    locationConstraint: {{ .Values.region }}
+    objectOwnership: BucketOwnerPreferred
+    publicAccessBlockConfiguration:
+      blockPublicAcls: true
+      blockPublicPolicy: true
+      ignorePublicAcls: true
+      restrictPublicBuckets: true

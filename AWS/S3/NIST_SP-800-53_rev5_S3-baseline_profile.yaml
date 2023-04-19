@@ -1,0 +1,89 @@
+profile:
+  uuid: 0faa2504-c14c-4a94-8904-30cbdb94a362
+  metadata:
+    title: NIST Special Publication 800-53 Revision 5 S3 BASELINE
+    last-modified: 2021-06-08T13:57:33.585986-04:00
+    version: Draft
+    oscal-version: 1.0.0
+    roles:
+      - id: creator
+        title: Document Creator
+      - id: contact
+        title: Contact
+    parties:
+      - uuid: 98b53905-1ce2-4af0-a059-459b117925d1
+        type: organization
+        name: ControlPlane
+        email-addresses:
+          - security@control-plane.io
+        addresses:
+          - addr-lines:
+              - 483 Green Lanes
+            city: London
+            state: London
+            postal-code: N13 4BS
+    responsible-parties:
+      - role-id: creator
+        party-uuids:
+          - 98b53905-1ce2-4af0-a059-459b117925d1
+  imports:
+    - href: NIST_SP-800-53_rev5_catalog.yaml
+      include-controls:
+        - with-ids:
+            - ac-17.2
+            - ac-2.4
+            - ac-21
+            - ac-3
+            - ac-3.7
+            - ac-4
+            - ac-4.21
+            - ac-4.26
+            - ac-6
+            - ac-6.9
+            - au-10
+            - au-12
+            - au-2
+            - au-3
+            - au-6.3
+            - au-6.4
+            - au-9
+            - au-9.2
+            - ca-7
+            - ca-9.1
+            - cm-3.6
+            - cp-10
+            - cp-6
+            - cp-6.1
+            - cp-6.2
+            - cp-9
+            - ia-3.3
+            - ia-5.1
+            - ir-4.12
+            - sc-13
+            - sc-23
+            - sc-28
+            - sc-28.1
+            - sc-34.2
+            - sc-36.2
+            - sc-5.2
+            - sc-7
+            - sc-7.10
+            - sc-7.11
+            - sc-7.16
+            - sc-7.20
+            - sc-7.21
+            - sc-7.3
+            - sc-7.4
+            - sc-7.9
+            - sc-8
+            - sc-8.1
+            - sc-8.2
+            - si-13.5
+            - si-3.8
+            - si-4
+            - si-4.20
+            - si-4.4
+            - si-7.6
+            - si-7.8
+  merge:
+    as-is: true

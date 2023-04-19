@@ -1,0 +1,6 @@
+policies:
+  - name: s3-bucket-ssl-requests-only
+    rules:
+      - name: s3-bucket-ssl-requests-only-check-policy-exists
+        values:
+          bucketnameref: [ "basic-bucket", "different-bucket" ]

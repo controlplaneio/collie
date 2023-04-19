@@ -1,0 +1,23 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: versioning-lifecycle-bucket
+  annotations:
+    crossplane.io/external-name: versioning-lifecycle-bucket-{{ .Values.suffix }}
+spec:
+  forProvider:
+    acl: private
+    locationConstraint: {{ .Values.region }}
+    objectOwnership: BucketOwnerPreferred
+    publicAccessBlockConfiguration:
+      blockPublicAcls: true
+      blockPublicPolicy: true
+      ignorePublicAcls: true
+      restrictPublicBuckets: true
+    versioningConfiguration:
+      status: Enabled
+    lifecycleConfiguration:
+      rules:
+        - abortIncompleteMultipartUpload:
+            daysAfterInitiation: 42
+          status: Enabled

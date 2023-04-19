@@ -1,0 +1,3352 @@
+component-definition:
+  uuid: 20e597f6-836b-436f-ba4e-74be11f96d27
+  metadata:
+    title: collie-aws-s3-crossplane-community
+    last-modified: '2023-01-05T12:00:00Z'
+    version: '20230105'
+    oscal-version: 1.0.0
+    parties:
+      - uuid: 98b53905-1ce2-4af0-a059-459b117925d1
+        type: organization
+        name: ControlPlane
+        links:
+          - href: <https://github.com/controlplaneio
+            rel: website
+  components:
+    - uuid: 51bfea57-cc49-40de-a091-65759a65b5b3
+      type: policy
+      title: collie-aws-s3
+      description: ControlPlane Security Policy Demo for S3 provisioned by Crossplane
+        Community AWS Provider
+      purpose: Validate compliance controls
+      responsible-roles:
+        - role-id: provider
+          party-uuids:
+            - 98b53905-1ce2-4af0-a059-459b117925d1
+      control-implementations:
+        - uuid: 0faa2504-c14c-4a94-8904-30cbdb94a362
+          source: https://github.com/controlplaneio/collie/blob/main/AWS/S3/NIST_SP-800-53_rev5_S3-baseline_profile.yaml
+          description: S3 control implementations for NIST SP 800-53 revision 5.
+          implemented-requirements:
+            - control-id: ac-21
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: c2ccfc53-bffc-4aa9-9956-46e4b92ca428
+            - control-id: ac-3
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: 16409532-5454-4e97-8859-6e7e0139218c
+            - control-id: ac-3.7
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: 308c450f-dc7c-44da-9e5f-e62e3ec736f7
+            - control-id: ac-4
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: 75d3802e-fd3d-49c3-a13a-300525e90bd5
+            - control-id: ac-4.21
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: f04a5dbb-3e37-49ed-b30a-0b0cb6672e70
+            - control-id: ac-6
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: 3d36ade5-6951-465c-a506-083debe0a8a3
+            - control-id: sc-7
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: 0cfb4da3-e62f-4611-b67d-36f538a415f1
+            - control-id: sc-7.11
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: 1b006d24-8e35-4292-b8e6-e1564068d477
+            - control-id: sc-7.20
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: cfc23d0f-9fba-496b-ad31-557adf64fbbc
+            - control-id: sc-7.21
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: aa4f8d85-c004-4a68-9a43-af579b4d7207
+            - control-id: sc-7.3
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: f1ae9284-cfab-475f-8de8-1c07c50c4a51
+            - control-id: sc-7.4
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: 2d39e33b-b852-4e78-b8dd-dfd3d5d5a6c3
+            - control-id: sc-7.9
+              description: s3-bucket-level-public-access-prohibited Manage access
+                to resources in the AWS Cloud by ensuring that Amazon Simple Storage
+                Service (Amazon S3) buckets cannot be publicly accessed. This rule
+                helps keeping sensitive data safe from unauthorized remote users by
+                preventing public access at the bucket level.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-acls
+                  validate:
+                    message: blockPublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-block-public-policy
+                  validate:
+                    message: blockPublicPolicy must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            blockPublicPolicy: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-ignore-public-acls
+                  validate:
+                    message: ignorePublicACLs must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            ignorePublicAcls: true
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-level-public-access-restrict-public-buckets
+                  validate:
+                    message: restrictPublicBuckets must be true
+                    pattern:
+                      spec:
+                        forProvider:
+                          publicAccessBlockConfiguration:
+                            restrictPublicBuckets: true
+              uuid: c24d1ee6-d466-44c9-b7f6-f0289a8e2181
+            - control-id: ac-2.4
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 869e4c0c-29fa-467b-9944-0850c2c8a955
+            - control-id: ac-4.26
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 94bd9861-c54e-42b9-8894-ee8123dd5e24
+            - control-id: ac-6.9
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 74ad89c0-2a96-4ba3-ad4e-fc5dfce2f026
+            - control-id: au-10
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 48ae22eb-cd33-4658-bd1b-f0e1ce219fd6
+            - control-id: au-12
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 63adb155-19af-46f0-9aca-fb1e4eb98b14
+            - control-id: au-2
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: d0cbd67a-3a73-4436-b160-f0299dc8459d
+            - control-id: au-3
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 955dfd63-72b9-4dca-b315-62f15a46f245
+            - control-id: au-6.3
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 4d7bb775-9133-4de7-adbc-35ea18cd1136
+            - control-id: au-6.4
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: afa17070-c3ff-437e-9162-1302731cdc6c
+            - control-id: ca-7
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: cf4ae9f0-eb3d-4bb9-8257-3c9c3cca3a6e
+            - control-id: ia-3.3
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 59f679ce-04f0-44b6-a028-e8ec2f8fefc9
+            - control-id: ir-4.12
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 9b3d8252-e6b0-4e2a-aab1-39dbd2f55c20
+            - control-id: sc-7.9
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 72fc789b-71d5-444c-b0fc-62a2beff51b8
+            - control-id: si-3.8
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: e6663476-a274-485b-974d-4ae146966a70
+            - control-id: si-4.20
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 1fd9378d-77f2-4e45-9e6f-539379bce416
+            - control-id: si-7.8
+              description: s3-bucket-logging-enabled Amazon Simple Storage Service
+                (Amazon S3) server access logging provides a method to monitor the
+                network for potential cybersecurity events. The events are monitored
+                by capturing detailed records for the requests that are made to an
+                Amazon S3 bucket. Each access log record provides details about a
+                single access request. The details include the requester, bucket name,
+                request time, request action, response status, and an error code,
+                if relevant.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-logging-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucket: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketRef:
+                                name: '*'
+                      - spec:
+                          forProvider:
+                            loggingConfiguration:
+                              targetBucketSelector:
+                                matchLabels: '*'
+                    message: s3-bucket-logging must be enabled. Set spec.forProvider.loggingConfiguration
+              uuid: 0052f247-7bea-492e-9a56-21581a912ee8
+            - control-id: au-9.2
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: 9de7ab6b-1636-4e99-8800-8411854f5e1d
+            - control-id: cp-10
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: cac35b8d-bc76-4098-ae5c-f74d58a43211
+            - control-id: cp-6
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: 6ec4540c-b96c-42e2-9b76-18257bded4c9
+            - control-id: cp-6.1
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: 95819204-45df-46fe-bec6-1766c44c27e2
+            - control-id: cp-6.2
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: 48c10c77-29dc-4bf7-8dfa-b113f7914343
+            - control-id: cp-9
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: f3b911e0-1bf0-4471-b989-8a5fa81849a0
+            - control-id: sc-36.2
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: c6e37256-da14-442c-b6b9-ae779261e11c
+            - control-id: sc-5.2
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: 1d245bbf-98ae-44bb-a9a9-195c1a76c508
+            - control-id: si-13.5
+              description: s3-bucket-replication-enabled Amazon Simple Storage Service
+                (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate
+                capacity and availability. CRR enables automatic, asynchronous copying
+                of objects across Amazon S3 buckets to help ensure that data availability
+                is maintained.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-replication-enabled
+                  validate:
+                    message: 's3 bucket replication must be enabled. Set spec.forProvider.replicationConfiguration:'
+                    pattern:
+                      spec:
+                        forProvider:
+                          replicationConfiguration:
+                            ^(rules):
+                              - status: Enabled
+              uuid: dedf1e36-9aa6-46d6-bbdd-ce9f234b03ff
+            - control-id: au-9
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: 5feeb563-6af8-47b5-af08-17369752d4db
+            - control-id: ca-9.1
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: 52bc1b27-94b2-4da7-8c52-f628c4409dfc
+            - control-id: cm-3.6
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: b582273d-f05c-4ab4-b290-9dad6137ec9f
+            - control-id: sc-13
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: cbb05e5c-0ca3-4785-9023-315c2576d0ee
+            - control-id: sc-28
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: 14893c25-8638-4dfb-b2af-916f636ce618
+            - control-id: sc-28.1
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: a2ad969d-5b11-4f90-a8ec-2b0de6ea8067
+            - control-id: sc-7.10
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: fddeaa7b-d109-4f70-9244-7bb261786d5a
+            - control-id: si-7.6
+              description: s3-bucket-server-side-encryption-enabled To help protect
+                data at rest, ensure encryption is enabled for your Amazon Simple
+                Storage Service (Amazon S3) buckets. Because sensitive data can exist
+                at rest in Amazon S3 buckets, enable encryption to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-server-side-encryption-enabled
+                  validate:
+                    message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: AES256 | aws:kms
+              uuid: 1df13678-3b02-4f27-a694-e9ea3a213868
+            - control-id: ac-17.2
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: 2e2be950-cffa-49c4-93bc-4dfd1e4175bd
+            - control-id: ac-4
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: 86ee774a-cc9a-4ed9-bd40-301c24faeb8e
+            - control-id: ia-5.1
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: e4a93ea5-b684-46c8-92a5-073c8025903d
+            - control-id: sc-13
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: d4852be5-0c9c-46d3-9d81-68ddf828a304
+            - control-id: sc-23
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: ec4147e6-3f4d-41ec-843d-9836b126b87a
+            - control-id: sc-7.4
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: 243a0726-2bd3-4039-88f2-05dd94f8f9a6
+            - control-id: sc-8
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: 67a30ce1-55b0-431e-bf24-6aee8c8d79b0
+            - control-id: sc-8.1
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: a5e5d4c4-8c8f-4358-913c-e73df79c634b
+            - control-id: sc-8.2
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: e91853ce-475a-459a-b974-84b58ee8e7e8
+            - control-id: si-7.6
+              description: s3-bucket-ssl-requests-only To help protect data in transit,
+                ensure that your Amazon Simple Storage Service (Amazon S3) buckets
+                require requests to use Secure Socket Layer (SSL). Because sensitive
+                data can exist, enable encryption in transit to help protect that
+                data.
+              rules:
+                - context:
+                    - apiCall:
+                        jmesPath: items[].spec.forProvider.bucketNameRef.name
+                        urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+                      name: bucketnameref
+                  exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-check-policy-exists
+                  validate:
+                    deny:
+                      conditions:
+                        all:
+                          - key: '{{request.object.metadata.name}}'
+                            operator: AnyNotIn
+                            value: '{{bucketnameref}}'
+                    message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}}
+                      existing bucket policies are in place for the following buckets:
+                      {{bucketnameref}} '
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - BucketPolicy
+                  mutate: {}
+                  name: s3-bucket-ssl-requests-only-require-http-validate
+                  validate:
+                    message: All Bucket Policy must include deny http block
+                    pattern:
+                      spec:
+                        forProvider:
+                          policy:
+                            ^(statements):
+                              - action:
+                                  - S3:GetObject
+                                condition:
+                                  - conditions:
+                                      - booleanValue: false
+                                        key: aws:SecureTransport
+                                    operatorKey: Bool
+                                effect: Deny
+                                sid: denyHTTP
+              uuid: 42e70516-7f46-493a-8440-2fbdca5d950f
+            - control-id: au-9.2
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: 2455d3b8-2fb4-435a-a058-2308ccd09916
+            - control-id: cp-10
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: 994d4848-aeac-4262-9ed3-d64327cce0ab
+            - control-id: cp-6
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: 65bc8665-88b3-4bdf-bc0c-9b82eb7dafc8
+            - control-id: cp-6.1
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: 3162f7b1-02cf-4291-8311-3ecc77b4b0ef
+            - control-id: cp-6.2
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: 864fe268-603f-4166-b17c-45510a79d4c5
+            - control-id: cp-9
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: 3e889ced-00ce-4271-a40c-e95834e0cfc9
+            - control-id: sc-34.2
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: 933916bc-b9be-43ac-8e99-a94d576cbc1b
+            - control-id: sc-5.2
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: c2bd9b90-4415-454a-98d8-430f768afce2
+            - control-id: si-13.5
+              description: s3-bucket-versioning-enabled Amazon Simple Storage Service
+                (Amazon S3) bucket versioning helps keep multiple variants of an object
+                in the same Amazon S3 bucket. Use versioning to preserve, retrieve,
+                and restore every version of every object stored in your Amazon S3
+                bucket. Versioning helps you to easily recover from unintended user
+                actions and application failures.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-bucket-versioning-enabled
+                  validate:
+                    message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+                    pattern:
+                      spec:
+                        forProvider:
+                          versioningConfiguration:
+                            status: Enabled
+              uuid: bd2aa0a9-f199-486e-8982-9542638290f2
+            - control-id: au-9
+              description: s3-default-encryption-kms Ensure that encryption is enabled
+                for your Amazon Simple Storage Service (Amazon S3) buckets. Because
+                sensitive data can exist at rest in an Amazon S3 bucket, enable encryption
+                at rest to help protect that data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-default-encryption-kms
+                  validate:
+                    message: 's3 bucket encryption with KMS must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: aws:kms
+              uuid: b4ea0eab-128d-47fb-a817-8f7815c49fcd
+            - control-id: ca-9.1
+              description: s3-default-encryption-kms Ensure that encryption is enabled
+                for your Amazon Simple Storage Service (Amazon S3) buckets. Because
+                sensitive data can exist at rest in an Amazon S3 bucket, enable encryption
+                at rest to help protect that data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-default-encryption-kms
+                  validate:
+                    message: 's3 bucket encryption with KMS must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: aws:kms
+              uuid: 31573d6c-cddd-4a64-ad07-e9f861cc328e
+            - control-id: cm-3.6
+              description: s3-default-encryption-kms Ensure that encryption is enabled
+                for your Amazon Simple Storage Service (Amazon S3) buckets. Because
+                sensitive data can exist at rest in an Amazon S3 bucket, enable encryption
+                at rest to help protect that data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-default-encryption-kms
+                  validate:
+                    message: 's3 bucket encryption with KMS must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: aws:kms
+              uuid: 7e81e233-78a8-450d-bdf4-be97be8e6d4a
+            - control-id: sc-13
+              description: s3-default-encryption-kms Ensure that encryption is enabled
+                for your Amazon Simple Storage Service (Amazon S3) buckets. Because
+                sensitive data can exist at rest in an Amazon S3 bucket, enable encryption
+                at rest to help protect that data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-default-encryption-kms
+                  validate:
+                    message: 's3 bucket encryption with KMS must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: aws:kms
+              uuid: d8d9cffa-6a45-48c8-b374-7444f7b7b31d
+            - control-id: sc-28.1
+              description: s3-default-encryption-kms Ensure that encryption is enabled
+                for your Amazon Simple Storage Service (Amazon S3) buckets. Because
+                sensitive data can exist at rest in an Amazon S3 bucket, enable encryption
+                at rest to help protect that data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-default-encryption-kms
+                  validate:
+                    message: 's3 bucket encryption with KMS must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: aws:kms
+              uuid: 4abb98ac-5116-4a69-a9dd-7e9427c5c169
+            - control-id: sc-7.10
+              description: s3-default-encryption-kms Ensure that encryption is enabled
+                for your Amazon Simple Storage Service (Amazon S3) buckets. Because
+                sensitive data can exist at rest in an Amazon S3 bucket, enable encryption
+                at rest to help protect that data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-default-encryption-kms
+                  validate:
+                    message: 's3 bucket encryption with KMS must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+                    pattern:
+                      spec:
+                        forProvider:
+                          serverSideEncryptionConfiguration:
+                            rules:
+                              - applyServerSideEncryptionByDefault:
+                                  sseAlgorithm: aws:kms
+              uuid: 1f40044f-914f-4b01-ab1b-686ff4bb6ea6
+            - control-id: ca-7
+              description: 's3-event-notifications-enabled Amazon S3 event notifications
+                can alert relevant personnel of any accidental or intentional modifications
+                on your bucket objects. Example alerts include: new object is creation,
+                object removal, object restoration, lost and replicated objects.'
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-event-notifications-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              topicConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              lambdaFunctionConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              queueConfigurations:
+                                - events: '*'
+                    message: s3 event notifications must be enabled. Set spec.forProvider.notificationConfiguration
+              uuid: 58aff54f-3acc-4931-9223-13a026967013
+            - control-id: si-3.8
+              description: 's3-event-notifications-enabled Amazon S3 event notifications
+                can alert relevant personnel of any accidental or intentional modifications
+                on your bucket objects. Example alerts include: new object is creation,
+                object removal, object restoration, lost and replicated objects.'
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-event-notifications-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              topicConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              lambdaFunctionConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              queueConfigurations:
+                                - events: '*'
+                    message: s3 event notifications must be enabled. Set spec.forProvider.notificationConfiguration
+              uuid: 88cbde46-2333-4a13-badd-b594231676bc
+            - control-id: si-4
+              description: 's3-event-notifications-enabled Amazon S3 event notifications
+                can alert relevant personnel of any accidental or intentional modifications
+                on your bucket objects. Example alerts include: new object is creation,
+                object removal, object restoration, lost and replicated objects.'
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-event-notifications-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              topicConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              lambdaFunctionConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              queueConfigurations:
+                                - events: '*'
+                    message: s3 event notifications must be enabled. Set spec.forProvider.notificationConfiguration
+              uuid: fb56eec3-7e90-499d-89d6-664a6b89d401
+            - control-id: si-4.4
+              description: 's3-event-notifications-enabled Amazon S3 event notifications
+                can alert relevant personnel of any accidental or intentional modifications
+                on your bucket objects. Example alerts include: new object is creation,
+                object removal, object restoration, lost and replicated objects.'
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-event-notifications-enabled
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              topicConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              lambdaFunctionConfigurations:
+                                - events: '*'
+                      - spec:
+                          forProvider:
+                            notificationConfiguration:
+                              queueConfigurations:
+                                - events: '*'
+                    message: s3 event notifications must be enabled. Set spec.forProvider.notificationConfiguration
+              uuid: 003d3f42-77bc-4cf6-9ea3-64f0bad424a5
+            - control-id: au-9.2
+              description: s3-version-lifecycle-policy-check Ensure Amazon S3 lifecycle
+                policies are configured to help define actions that you want Amazon
+                S3 to take during an object's lifetime (for example, transition objects
+                to another storage class, archive them, or delete them after a specified
+                period of time).
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-version-lifecycle-policy-check
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            lifecycleConfiguration:
+                              ^(rules):
+                                - status: Enabled
+                    message: s3 version lifecycle policy must be defined. Set spec.forProvider.notificationConfiguration
+              uuid: 1ad3e31c-59c8-4421-a152-3f51d219c233
+            - control-id: cp-10
+              description: s3-version-lifecycle-policy-check Ensure Amazon S3 lifecycle
+                policies are configured to help define actions that you want Amazon
+                S3 to take during an object's lifetime (for example, transition objects
+                to another storage class, archive them, or delete them after a specified
+                period of time).
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-version-lifecycle-policy-check
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            lifecycleConfiguration:
+                              ^(rules):
+                                - status: Enabled
+                    message: s3 version lifecycle policy must be defined. Set spec.forProvider.notificationConfiguration
+              uuid: 30c73c8a-aa73-4b03-ba42-499a5fefb320
+            - control-id: cp-6.2
+              description: s3-version-lifecycle-policy-check Ensure Amazon S3 lifecycle
+                policies are configured to help define actions that you want Amazon
+                S3 to take during an object's lifetime (for example, transition objects
+                to another storage class, archive them, or delete them after a specified
+                period of time).
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-version-lifecycle-policy-check
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            lifecycleConfiguration:
+                              ^(rules):
+                                - status: Enabled
+                    message: s3 version lifecycle policy must be defined. Set spec.forProvider.notificationConfiguration
+              uuid: 25567763-696f-4411-8ba6-bf27bf881eb7
+            - control-id: cp-9
+              description: s3-version-lifecycle-policy-check Ensure Amazon S3 lifecycle
+                policies are configured to help define actions that you want Amazon
+                S3 to take during an object's lifetime (for example, transition objects
+                to another storage class, archive them, or delete them after a specified
+                period of time).
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-version-lifecycle-policy-check
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            lifecycleConfiguration:
+                              ^(rules):
+                                - status: Enabled
+                    message: s3 version lifecycle policy must be defined. Set spec.forProvider.notificationConfiguration
+              uuid: 9e2293e6-bb7a-4612-a934-fc437d2a9102
+            - control-id: sc-5.2
+              description: s3-version-lifecycle-policy-check Ensure Amazon S3 lifecycle
+                policies are configured to help define actions that you want Amazon
+                S3 to take during an object's lifetime (for example, transition objects
+                to another storage class, archive them, or delete them after a specified
+                period of time).
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-version-lifecycle-policy-check
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            lifecycleConfiguration:
+                              ^(rules):
+                                - status: Enabled
+                    message: s3 version lifecycle policy must be defined. Set spec.forProvider.notificationConfiguration
+              uuid: 1e099703-c431-4f77-9b8d-c2bb226effd8
+            - control-id: si-13.5
+              description: s3-version-lifecycle-policy-check Ensure Amazon S3 lifecycle
+                policies are configured to help define actions that you want Amazon
+                S3 to take during an object's lifetime (for example, transition objects
+                to another storage class, archive them, or delete them after a specified
+                period of time).
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - s3.aws.crossplane.io/v1beta1/Bucket
+                  mutate: {}
+                  name: s3-version-lifecycle-policy-check
+                  validate:
+                    anyPattern:
+                      - spec:
+                          forProvider:
+                            lifecycleConfiguration:
+                              ^(rules):
+                                - status: Enabled
+                    message: s3 version lifecycle policy must be defined. Set spec.forProvider.notificationConfiguration
+              uuid: e4fef543-de5a-45c8-8877-223801e96f4c

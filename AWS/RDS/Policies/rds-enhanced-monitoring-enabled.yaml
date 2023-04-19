@@ -1,0 +1,33 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: rds-enhanced-monitoring-enabled
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - database.aws.crossplane.io/v1beta1/RDSInstance
+      mutate: {}
+      name: rds-enhanced-monitoring-enabled
+      validate:
+        message: rds enhanced monitoring must be enabled . Set spec.forProvider.monitoringInterval
+        pattern:
+          spec:
+            forProvider:
+              monitoringInterval: 1 | 5 | 10 | 15 | 30 | 60
+  validationFailureAction: enforce
+status:
+  autogen: {}
+  ready: false
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 0
+    verifyimages: 0

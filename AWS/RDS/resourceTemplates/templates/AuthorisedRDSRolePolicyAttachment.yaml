@@ -1,0 +1,9 @@
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: RolePolicyAttachment
+metadata:
+  name: authorised-rds-role-policy-attachment
+spec:
+  forProvider:
+    policyArn: arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole
+    roleNameRef:
+      name: authorised-rds-role

@@ -1,0 +1,27 @@
+apiVersion: database.aws.crossplane.io/v1beta1
+kind: RDSInstance
+metadata:
+  name: authorised-rdsinstance
+spec:
+  forProvider:
+    multiAZ: true
+    cloudwatchLogsExportConfiguration:
+      enableLogTypes:
+        - postgresql
+    deletionProtection: true
+    masterUsername: collieadmin
+    monitoringInterval: 1
+    monitoringRoleArnRef:
+      name: authorised-rds-role
+    allocatedStorage: 20
+    dbInstanceClass: db.t2.small
+    engine: postgres
+    engineVersion: "12"
+    region: {{ .Values.region }}
+    skipFinalSnapshotBeforeDeletion: true
+    autoMinorVersionUpgrade: true
+    storageEncrypted: true
+    publiclyAccessible: false
+  writeConnectionSecretToRef:
+    namespace: crossplane-system
+    name: rds-pw-out-authorised

@@ -1,0 +1,182 @@
+name: crossplane-s3-validating-tests
+variables: variables.yaml
+policies:
+  - ./Policies/s3-bucket-level-public-access-prohibited.yaml
+  - ./Policies/s3-bucket-logging-enabled.yaml
+  - ./Policies/s3-bucket-replication-enabled.yaml
+  - ./Policies/s3-bucket-server-side-encryption-enabled.yaml
+  - ./Policies/s3-bucket-ssl-requests-only.yaml
+  - ./Policies/s3-bucket-versioning-enabled.yaml
+  - ./Policies/s3-default-encryption-kms.yaml
+  - ./Policies/s3-event-notifications-enabled.yaml
+  - ./Policies/s3-version-lifecycle-policy-check.yaml
+resources:
+  - ./Resources/AuthorisedBucket/AuthorisedBucket.yaml
+  - ./Resources/AuthorisedBucket/AuthorisedBucketPolicy.yaml
+  - ./Resources/UnauthorisedBucketPolicy.yaml
+  - ./Resources/BasicBucket.yaml
+  - ./Resources/anotherBucket.yaml
+
+results:
+  # Encryption enabled by default
+  - policy: s3-bucket-server-side-encryption-enabled
+    rule: s3-bucket-server-side-encryption-enabled
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-server-side-encryption-enabled
+    rule: s3-bucket-server-side-encryption-enabled
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  # Public access tests
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-block-public-acls
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-block-public-policy
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-ignore-public-acls
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-restrict-public-buckets
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-block-public-acls
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-block-public-policy
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-ignore-public-acls
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+  - policy: s3-bucket-level-public-access-prohibited
+    rule: s3-bucket-level-public-access-restrict-public-buckets
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+  # s3 logging enabled test
+  - policy: s3-bucket-logging-enabled
+    rule: s3-bucket-logging-enabled
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-logging-enabled
+    rule: s3-bucket-logging-enabled
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+    # s3 replication
+  - policy: s3-bucket-replication-enabled
+    rule: s3-bucket-replication-enabled
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+  - policy: s3-bucket-replication-enabled
+    rule: s3-bucket-replication-enabled
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-ssl-requests-only
+    rule: s3-bucket-ssl-requests-only-require-http-validate
+    resource: bucketpolicy-deny-http
+    kind: BucketPolicy
+    result: pass
+
+  - policy: s3-bucket-ssl-requests-only
+    rule: s3-bucket-ssl-requests-only-require-http-validate
+    resource: unauthorised-bucketpolicy
+    kind: BucketPolicy
+    result: fail
+
+  - policy: s3-bucket-ssl-requests-only
+    rule: s3-bucket-ssl-requests-only-check-policy-exists
+    resource: another-bucket
+    kind: Bucket
+    result: fail
+
+  - policy: s3-bucket-ssl-requests-only
+    rule: s3-bucket-ssl-requests-only-check-policy-exists
+    resource: basic-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-bucket-versioning-enabled
+    rule: s3-bucket-versioning-enabled
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+  - policy: s3-bucket-versioning-enabled
+    rule: s3-bucket-versioning-enabled
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+    # s3-default-encryption-kms
+  - policy: s3-default-encryption-kms
+    rule: s3-default-encryption-kms
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-default-encryption-kms
+    rule: s3-default-encryption-kms
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+    # s3-event-notifications-enabled
+  - policy: s3-event-notifications-enabled
+    rule: s3-event-notifications-enabled
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-event-notifications-enabled
+    rule: s3-event-notifications-enabled
+    resource: basic-bucket
+    kind: Bucket
+    result: fail
+
+    # s3-version-lifecycle-policy-check
+  - policy: s3-version-lifecycle-policy-check
+    rule: s3-version-lifecycle-policy-check
+    resource: authorised-bucket
+    kind: Bucket
+    result: pass
+
+  - policy: s3-version-lifecycle-policy-check
+    rule: s3-version-lifecycle-policy-check
+    resource: basic-bucket
+    kind: Bucket
+    result: fail

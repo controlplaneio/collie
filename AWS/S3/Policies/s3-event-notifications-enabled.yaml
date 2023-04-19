@@ -1,0 +1,45 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-event-notifications-enabled
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+        cloneList: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-event-notifications-enabled
+      validate:
+        anyPattern:
+          - spec:
+              forProvider:
+                notificationConfiguration:
+                  topicConfigurations:
+                    - events: '*'
+          - spec:
+              forProvider:
+                notificationConfiguration:
+                  lambdaFunctionConfigurations:
+                    - events: '*'
+          - spec:
+              forProvider:
+                notificationConfiguration:
+                  queueConfigurations:
+                    - events: '*'
+        message: s3 event notifications must be enabled. Set spec.forProvider.notificationConfiguration
+  validationFailureAction: enforce
+status:
+  autogen: {}
+  ready: false
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 0
+    verifyimages: 0
