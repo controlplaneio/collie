@@ -1,0 +1,17 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: versioning-bucket
+  annotations:
+    crossplane.io/external-name: versioning-bucket-{{ .Values.suffix }}
+spec:
+  forProvider:
+    acl: private
+    locationConstraint: {{ .Values.region }}
+    publicAccessBlockConfiguration:
+      blockPublicAcls: true
+      blockPublicPolicy: true
+      ignorePublicAcls: true
+      restrictPublicBuckets: true
+    versioningConfiguration:
+      status: Enabled

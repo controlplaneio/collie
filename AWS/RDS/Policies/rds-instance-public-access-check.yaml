@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: rds-instance-public-access-check
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - RDSInstance
+      mutate: {}
+      name: rds-instance-public-access-check
+      validate:
+        message: rds instance public access must be set to false. Set spec.forProvider.publiclyAccessible.
+        pattern:
+          spec:
+            forProvider:
+              publiclyAccessible: false
+  validationFailureAction: enforce
+status:
+  ready: false

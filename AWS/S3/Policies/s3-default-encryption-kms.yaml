@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-default-encryption-kms
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-default-encryption-kms
+      validate:
+        message: 's3 bucket encryption with KMS must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+        pattern:
+          spec:
+            forProvider:
+              serverSideEncryptionConfiguration:
+                rules:
+                  - applyServerSideEncryptionByDefault:
+                      sseAlgorithm: aws:kms
+  validationFailureAction: enforce
+status:
+  ready: false

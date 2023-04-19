@@ -1,0 +1,1325 @@
+component-definition:
+  uuid:
+  metadata:
+    title: collie-aws-RDS-crossplane-community
+    last-modified: '2023-01-05T12:00:00Z'
+    version: '20230105'
+    oscal-version: 1.0.0
+    parties:
+      - uuid: 98b53905-1ce2-4af0-a059-459b117925d1
+        type: organization
+        name: ControlPlane
+        links:
+          - href: <https://github.com/controlplaneio
+            rel: website
+  components:
+    - uuid:
+      type: policy
+      title: collie-aws-RDS
+      description: |
+        ControlPlane Security Policy Demo for RDS provisioned by Crossplane (Community AWS Provider)
+      purpose: Validate compliance controls
+      responsible-roles:
+        - role-id: provider
+          party-uuids:
+            - 98b53905-1ce2-4af0-a059-459b117925d1
+      control-implementations:
+        - uuid:
+          source:
+          description: RDS control implementations for NIST SP 800-53 revision 5.
+          implemented-requirements:
+            - control-id: si-2
+              description: rds-enhanced-monitoring-enabled Enable Amazon Relational
+                Database Service (Amazon RDS) to help monitor Amazon RDS availability.
+                This provides detailed visibility into the health of your Amazon RDS
+                database instances. When the Amazon RDS storage is using more than
+                one underlying physical device, Enhanced Monitoring collects the data
+                for each device. Also, when the Amazon RDS database instance is running
+                in a Multi-AZ deployment, the data for each device on the secondary
+                host is collected, and the secondary host metrics.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - database.aws.crossplane.io/v1beta1/RDSInstance
+                  mutate: {}
+                  name: rds-enhanced-monitoring-enabled
+                  validate:
+                    message: rds enhanced monitoring must be enabled . Set spec.forProvider.monitoringInterval
+                    pattern:
+                      spec:
+                        forProvider:
+                          monitoringInterval: 1 | 5 | 10 | 15 | 30 | 60
+              uuid: f9ae7337-5cfd-492d-978c-b669d486a8f9
+            - control-id: cm-2
+              description: rds-instance-default-admin-check As default usernames are
+                public knowledge, changing default usernames can assist in reducing
+                the attack surface for your Amazon Relational Database Service (Amazon
+                RDS) database instance(s).
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - database.aws.crossplane.io/v1beta1/RDSInstance
+                  mutate: {}
+                  name: rds-admin-not-default
+                  validate:
+                    message: rds instance default admin must be changed. Set spec.forProvider.masterUsername
+                    pattern:
+                      spec:
+                        forProvider:
+                          masterUsername: '!default'
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - database.aws.crossplane.io/v1beta1/RDSInstance
+                  mutate: {}
+                  name: rds-admin-not-admin
+                  validate:
+                    message: rds instance default admin must be changed. Set spec.forProvider.masterUsername
+                    pattern:
+                      spec:
+                        forProvider:
+                          masterUsername: '!admin'
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - database.aws.crossplane.io/v1beta1/RDSInstance
+                  mutate: {}
+                  name: rds-admin-not-postgres
+                  validate:
+                    message: rds instance default admin must be changed. Set spec.forProvider.masterUsername
+                    pattern:
+                      spec:
+                        forProvider:
+                          masterUsername: '!postgres'
+              uuid: 291166a3-c1ff-4e3b-b268-e85311c0f4e3
+            - control-id: cm-3
+              description: rds-instance-deletion-protection-enabled Ensure Amazon
+                Relational Database Service (Amazon RDS) instances have deletion protection
+                enabled. Use deletion protection to prevent your Amazon RDS instances
+                from being accidentally or maliciously deleted, which can lead to
+                loss of availability for your applications.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - database.aws.crossplane.io/v1beta1/RDSInstance
+                  mutate: {}
+                  name: rds-instance-deletion-protection-enabled
+                  validate:
+                    message: rds instance deletion protection must be enabled . Set
+                      spec.forProvider.deletionProtection
+                    pattern:
+                      spec:
+                        forProvider:
+                          deletionProtection: true
+              uuid: 8920c3bf-1618-4245-b644-f0035027fbaa
+            - control-id: sc-5.2
+              description: rds-instance-deletion-protection-enabled Ensure Amazon
+                Relational Database Service (Amazon RDS) instances have deletion protection
+                enabled. Use deletion protection to prevent your Amazon RDS instances
+                from being accidentally or maliciously deleted, which can lead to
+                loss of availability for your applications.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - database.aws.crossplane.io/v1beta1/RDSInstance
+                  mutate: {}
+                  name: rds-instance-deletion-protection-enabled
+                  validate:
+                    message: rds instance deletion protection must be enabled . Set
+                      spec.forProvider.deletionProtection
+                    pattern:
+                      spec:
+                        forProvider:
+                          deletionProtection: true
+              uuid: 3783a40c-064d-4b5a-906f-c9348baaf97a
+            - control-id: si-13.5
+              description: rds-instance-deletion-protection-enabled Ensure Amazon
+                Relational Database Service (Amazon RDS) instances have deletion protection
+                enabled. Use deletion protection to prevent your Amazon RDS instances
+                from being accidentally or maliciously deleted, which can lead to
+                loss of availability for your applications.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - database.aws.crossplane.io/v1beta1/RDSInstance
+                  mutate: {}
+                  name: rds-instance-deletion-protection-enabled
+                  validate:
+                    message: rds instance deletion protection must be enabled . Set
+                      spec.forProvider.deletionProtection
+                    pattern:
+                      spec:
+                        forProvider:
+                          deletionProtection: true
+              uuid: 77249e5a-51b6-492d-963b-abcfbe9fcd6f
+            - control-id: ac-3.7
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 849b67f1-a65d-4a93-8c4d-390eb3b2b3a1
+            - control-id: ac-3
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 1d42ef44-2a12-45fb-8c98-ab47635308a5
+            - control-id: ac-4.21
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: ef62169d-e43e-4809-b952-6fa189fb9323
+            - control-id: ac-4
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: db9c92e4-9318-4677-8098-a6bbd621a44c
+            - control-id: ac-6
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 7d4333c2-dcb3-44e1-aaa0-d7e16b3391ec
+            - control-id: ac-21
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 7ddd9316-0848-47be-a305-23374b04664e
+            - control-id: sc-7.3
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 1241c9b9-350c-4198-8c0f-ee6c4ebb0010
+            - control-id: sc-7.4
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 413a4e42-c831-4876-af30-13ae744efa56
+            - control-id: sc-7.9
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: e377a4b4-1dc9-44a2-be04-21153fcf2bf3
+            - control-id: sc-7.11
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: d7b5bdf2-59bc-42be-971b-cdc22d044bea
+            - control-id: sc-7.16
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: cb98584e-3101-410a-ae7a-3b8c366da5c3
+            - control-id: sc-7.20
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 7b754641-9031-4cfb-9e96-12dc54f119f1
+            - control-id: sc-7.21
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: 0b0f3770-3a95-416c-92c6-d65edbfdfb60
+            - control-id: sc-7
+              description: rds-instance-public-access-check Manage access to resources
+                in the AWS Cloud by ensuring that Amazon Relational Database Service
+                (Amazon RDS) instances are not public. Amazon RDS database instances
+                can contain sensitive information, and principles and access control
+                is required for such accounts.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-instance-public-access-check
+                  validate:
+                    message: rds instance public access must be set to false. Set
+                      spec.forProvider.publiclyAccessible.
+                    pattern:
+                      spec:
+                        forProvider:
+                          publiclyAccessible: false
+              uuid: c7623eb6-b79a-4990-b03b-546e7de975ce
+            - control-id: ac-2.4
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: bed333e0-d669-466b-b188-7363e4499c16
+            - control-id: ac-4.26
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 6642e140-4ef1-4def-be30-dc18dd27e97f
+            - control-id: ac-6.9
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 8d367e41-73f7-4180-aaca-2caecca55938
+            - control-id: au-2
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: cbbda3c6-a9c2-4615-b369-b9bdb38fb06d
+            - control-id: au-3
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 953cfd92-97e6-49d0-8960-7da2fcf21365
+            - control-id: au-6.3
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: ed4b57b6-73b6-4812-968a-4941a6e27ed3
+            - control-id: au-6.4
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: b7b61a48-40ec-454e-977b-136e0448ba0b
+            - control-id: au-10
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: ad4e8c75-829d-4d79-a535-f87ffdabac20
+            - control-id: au-12
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: cad582b0-b5a5-4974-b3d7-c1be6625c423
+            - control-id: ca-7
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 6bc706d8-457b-4b0a-a9d8-c8665118232a
+            - control-id: ca-9.1
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 898c473e-be09-431f-97d9-a7967e11c39c
+            - control-id: cm-3.6
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: f316d3f5-c911-4add-9a1d-e4e8f6735684
+            - control-id: ia-3.3
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: cecd9785-21b0-48c8-8634-966347d3e110
+            - control-id: ir-4.12
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: de5ee042-3db6-426e-bc3d-94c4865dc3e4
+            - control-id: sc-7.9
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 8adf0bd8-41b4-46e0-8556-dfe70feb20e0
+            - control-id: sc-7.10
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 73721380-745d-4d97-9e7d-c1baff63bccd
+            - control-id: si-3.8
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: e3c442d2-eac5-4203-843c-b0ab88057d70
+            - control-id: si-4.20
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 41808a86-bb73-43a6-8fd6-ec8ebc785c3e
+            - control-id: si-7.8
+              description: rds-logging-enabled To help with logging and monitoring
+                within your environment, ensure Amazon Relational Database Service
+                (Amazon RDS) logging is enabled. With Amazon RDS logging, you can
+                capture events such as connections, disconnections, queries, or tables
+                queried.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-logging-enabled
+                  validate:
+                    message: rds logging must be enabled. Set spec.forProvider.cloudwatchLogsExportConfiguration.
+                    pattern:
+                      spec:
+                        forProvider:
+                          cloudwatchLogsExportConfiguration:
+                            enableLogTypes: '*'
+              uuid: 0cf1b680-6e65-40ea-bf0f-633895e31520
+            - control-id: cp-6.2
+              description: rds-multi-az-support Multi-AZ support in Amazon Relational
+                Database Service (Amazon RDS) provides enhanced availability and durability
+                for database instances. When you provision a Multi-AZ database instance,
+                Amazon RDS automatically creates a primary database instance, and
+                synchronously replicates the data to a standby instance in a different
+                Availability Zone. Each Availability Zone runs on its own physically
+                distinct, independent infrastructure, and is engineered to be highly
+                reliable. In case of an infrastructure failure, Amazon RDS performs
+                an automatic failover to the standby so that you can resume database
+                operations as soon as the failover is complete.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-multi-az-support
+                  validate:
+                    message: rds-multi-az-support must be enabled. Set spec.forProvider.multiAZ.
+                    pattern:
+                      spec:
+                        forProvider:
+                          multiAZ: true
+              uuid: a6d671e6-6a42-4dc4-872d-f830c5efff49
+            - control-id: cp-10
+              description: rds-multi-az-support Multi-AZ support in Amazon Relational
+                Database Service (Amazon RDS) provides enhanced availability and durability
+                for database instances. When you provision a Multi-AZ database instance,
+                Amazon RDS automatically creates a primary database instance, and
+                synchronously replicates the data to a standby instance in a different
+                Availability Zone. Each Availability Zone runs on its own physically
+                distinct, independent infrastructure, and is engineered to be highly
+                reliable. In case of an infrastructure failure, Amazon RDS performs
+                an automatic failover to the standby so that you can resume database
+                operations as soon as the failover is complete.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-multi-az-support
+                  validate:
+                    message: rds-multi-az-support must be enabled. Set spec.forProvider.multiAZ.
+                    pattern:
+                      spec:
+                        forProvider:
+                          multiAZ: true
+              uuid: 29694e10-baba-4eb4-8e38-0b5eed190a87
+            - control-id: sc-5.2
+              description: rds-multi-az-support Multi-AZ support in Amazon Relational
+                Database Service (Amazon RDS) provides enhanced availability and durability
+                for database instances. When you provision a Multi-AZ database instance,
+                Amazon RDS automatically creates a primary database instance, and
+                synchronously replicates the data to a standby instance in a different
+                Availability Zone. Each Availability Zone runs on its own physically
+                distinct, independent infrastructure, and is engineered to be highly
+                reliable. In case of an infrastructure failure, Amazon RDS performs
+                an automatic failover to the standby so that you can resume database
+                operations as soon as the failover is complete.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-multi-az-support
+                  validate:
+                    message: rds-multi-az-support must be enabled. Set spec.forProvider.multiAZ.
+                    pattern:
+                      spec:
+                        forProvider:
+                          multiAZ: true
+              uuid: 0c3dc420-100e-4eed-bdb5-e916afe469d5
+            - control-id: sc-36
+              description: rds-multi-az-support Multi-AZ support in Amazon Relational
+                Database Service (Amazon RDS) provides enhanced availability and durability
+                for database instances. When you provision a Multi-AZ database instance,
+                Amazon RDS automatically creates a primary database instance, and
+                synchronously replicates the data to a standby instance in a different
+                Availability Zone. Each Availability Zone runs on its own physically
+                distinct, independent infrastructure, and is engineered to be highly
+                reliable. In case of an infrastructure failure, Amazon RDS performs
+                an automatic failover to the standby so that you can resume database
+                operations as soon as the failover is complete.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-multi-az-support
+                  validate:
+                    message: rds-multi-az-support must be enabled. Set spec.forProvider.multiAZ.
+                    pattern:
+                      spec:
+                        forProvider:
+                          multiAZ: true
+              uuid: b3ea9c46-5ac2-465c-89e3-02284863a00c
+            - control-id: si-13.5
+              description: rds-multi-az-support Multi-AZ support in Amazon Relational
+                Database Service (Amazon RDS) provides enhanced availability and durability
+                for database instances. When you provision a Multi-AZ database instance,
+                Amazon RDS automatically creates a primary database instance, and
+                synchronously replicates the data to a standby instance in a different
+                Availability Zone. Each Availability Zone runs on its own physically
+                distinct, independent infrastructure, and is engineered to be highly
+                reliable. In case of an infrastructure failure, Amazon RDS performs
+                an automatic failover to the standby so that you can resume database
+                operations as soon as the failover is complete.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-multi-az-support
+                  validate:
+                    message: rds-multi-az-support must be enabled. Set spec.forProvider.multiAZ.
+                    pattern:
+                      spec:
+                        forProvider:
+                          multiAZ: true
+              uuid: 0ca3f047-2b8f-4ede-abf9-c6db716c3d67
+            - control-id: ca-9.1
+              description: rds-storage-encrypted To help protect data at rest, ensure
+                that encryption is enabled for your Amazon Relational Database Service
+                (Amazon RDS) instances. Because sensitive data can exist at rest in
+                Amazon RDS instances, enable encryption at rest to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-storage-encrypted
+                  validate:
+                    message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+                    pattern:
+                      spec:
+                        forProvider:
+                          storageEncrypted: true
+              uuid: f66aa4e8-0558-4b21-8e23-05401bb23376
+            - control-id: cm-3.6
+              description: rds-storage-encrypted To help protect data at rest, ensure
+                that encryption is enabled for your Amazon Relational Database Service
+                (Amazon RDS) instances. Because sensitive data can exist at rest in
+                Amazon RDS instances, enable encryption at rest to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-storage-encrypted
+                  validate:
+                    message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+                    pattern:
+                      spec:
+                        forProvider:
+                          storageEncrypted: true
+              uuid: 43bfc1ac-b82c-46b7-8955-f40663426384
+            - control-id: sc-7.10
+              description: rds-storage-encrypted To help protect data at rest, ensure
+                that encryption is enabled for your Amazon Relational Database Service
+                (Amazon RDS) instances. Because sensitive data can exist at rest in
+                Amazon RDS instances, enable encryption at rest to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-storage-encrypted
+                  validate:
+                    message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+                    pattern:
+                      spec:
+                        forProvider:
+                          storageEncrypted: true
+              uuid: 11ab1d86-900f-4fc9-8168-95be016852fa
+            - control-id: sc-13
+              description: rds-storage-encrypted To help protect data at rest, ensure
+                that encryption is enabled for your Amazon Relational Database Service
+                (Amazon RDS) instances. Because sensitive data can exist at rest in
+                Amazon RDS instances, enable encryption at rest to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-storage-encrypted
+                  validate:
+                    message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+                    pattern:
+                      spec:
+                        forProvider:
+                          storageEncrypted: true
+              uuid: f1027d92-1c46-4164-a517-8ba90346b3e7
+            - control-id: sc-28.1
+              description: rds-storage-encrypted To help protect data at rest, ensure
+                that encryption is enabled for your Amazon Relational Database Service
+                (Amazon RDS) instances. Because sensitive data can exist at rest in
+                Amazon RDS instances, enable encryption at rest to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-storage-encrypted
+                  validate:
+                    message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+                    pattern:
+                      spec:
+                        forProvider:
+                          storageEncrypted: true
+              uuid: 1654bf5a-8f4b-4b2e-94e7-b731886dd3ff
+            - control-id: sc-28
+              description: rds-storage-encrypted To help protect data at rest, ensure
+                that encryption is enabled for your Amazon Relational Database Service
+                (Amazon RDS) instances. Because sensitive data can exist at rest in
+                Amazon RDS instances, enable encryption at rest to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-storage-encrypted
+                  validate:
+                    message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+                    pattern:
+                      spec:
+                        forProvider:
+                          storageEncrypted: true
+              uuid: a4ab0ced-9f9a-4495-9c53-9dec2ea8d700
+            - control-id: si-7.6
+              description: rds-storage-encrypted To help protect data at rest, ensure
+                that encryption is enabled for your Amazon Relational Database Service
+                (Amazon RDS) instances. Because sensitive data can exist at rest in
+                Amazon RDS instances, enable encryption at rest to help protect that
+                data.
+              rules:
+                - exclude:
+                    resources: {}
+                  generate:
+                    clone: {}
+                  match:
+                    resources:
+                      kinds:
+                        - RDSInstance
+                  mutate: {}
+                  name: rds-storage-encrypted
+                  validate:
+                    message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+                    pattern:
+                      spec:
+                        forProvider:
+                          storageEncrypted: true
+              uuid: 26f6860c-1ef4-4631-adcc-4f2720f892ce

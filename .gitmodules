@@ -1,0 +1,12 @@
+[submodule "Tools/lula"]
+	path = Tools/lula
+	url = https://github.com/defenseunicorns/lula.git
+[submodule "bats/test_helper/bats-support"]
+	path = bats/test_helper/bats-support
+	url = https://github.com/bats-core/bats-support.git
+[submodule "bats/test_helper/bats-assert"]
+	path = bats/test_helper/bats-assert
+	url = https://github.com/bats-core/bats-assert.git
+[submodule "bats/bats-core"]
+	path = bats/bats-core
+	url = https://github.com/bats-core/bats-core.git

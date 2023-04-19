@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-bucket-versioning-enabled
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-versioning-enabled
+      validate:
+        message: s3 bucket versioning must be enabled. Set spec.forProvider.versioningConfiguration
+        pattern:
+          spec:
+            forProvider:
+              versioningConfiguration:
+                status: Enabled
+  validationFailureAction: enforce
+status:
+  ready: false

@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-version-lifecycle-policy-check
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-version-lifecycle-policy-check
+      validate:
+        anyPattern:
+          - spec:
+              forProvider:
+                lifecycleConfiguration:
+                  ^(rules):
+                    - status: Enabled
+        message: s3 version lifecycle policy must be defined. Set spec.forProvider.notificationConfiguration
+  validationFailureAction: enforce
+status:
+  ready: false

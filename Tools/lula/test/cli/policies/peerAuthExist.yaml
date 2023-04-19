@@ -1,0 +1,26 @@
+# Currently broken in kyverno client library
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: istio_AC-4
+spec:
+  rules:
+  - name: istio-controlplane_AC-4(peer-auth-for-every-namespace)
+    match:
+      any:
+      - resources:
+          kinds:
+          - "Pod"
+    context:
+    - name: peerAuthCount
+      apiCall:
+        urlPath: "apis/security.istio.io/v1beta1/namespaces/{{request.namespace}}/peerauthentications"
+        jmesPath: "items | length(@)"
+    validate:
+      message: "Pods cannot be deployed without a PeerAuthentication"
+      deny:
+        conditions:
+          any:
+          - key: "{{peerAuthCount}}"
+            operator: LessThan
+            value: 1

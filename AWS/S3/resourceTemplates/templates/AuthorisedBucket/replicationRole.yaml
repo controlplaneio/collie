@@ -1,0 +1,109 @@
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: Role
+metadata:
+  name: dci-bucket-replication-role-{{ .Values.suffix }}
+spec:
+  forProvider:
+    assumeRolePolicyDocument: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "s3.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      }
+---
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: Policy
+metadata:
+  name: somepolicy
+spec:
+  forProvider:
+    name: external-name
+    document: |
+      {
+        "Version":"2012-10-17",
+        "Statement":[
+            {
+              "Action":[
+                  "s3:ListBucket",
+                  "s3:GetReplicationConfiguration",
+                  "s3:GetObjectVersionForReplication",
+                  "s3:GetObjectVersionAcl",
+                  "s3:GetObjectVersionTagging"
+              ],
+              "Effect":"Allow",
+              "Resource":[
+                  "arn:aws:s3:::authorised-bucket-{{ .Values.suffix }}",
+                  "arn:aws:s3:::authorised-bucket-{{ .Values.suffix }}/*"
+              ]
+            },
+            {
+              "Action":[
+                  "s3:ReplicateObject",
+                  "s3:ReplicateDelete",
+                  "s3:ReplicateTags"
+              ],
+              "Effect":"Allow",
+              "Condition":{
+                  "StringLikeIfExists":{
+                    "s3:x-amz-server-side-encryption":[
+                        "aws:kms",
+                        "AES256"
+                    ]
+                  }
+              },
+              "Resource":"{{ .Values.replication.bucketARN }}/*"
+            },
+            {
+              "Action":[
+                  "kms:Decrypt"
+              ],
+              "Effect":"Allow",
+              "Condition":{
+                  "StringLike":{
+                    "kms:ViaService":"s3.{{ .Values.region }}.amazonaws.com",
+                    "kms:EncryptionContext:aws:s3:arn":[
+                        "arn:aws:s3:::authorised-bucket-{{ .Values.suffix }}/*"
+                    ]
+                  }
+              },
+              "Resource":[
+                "*"
+              ]
+            },
+            {
+              "Action":[
+                  "kms:Encrypt"
+              ],
+              "Effect":"Allow",
+              "Condition":{
+                  "StringLike":{
+                    "kms:ViaService":"s3.{{ .Values.region }}.amazonaws.com",
+                    "kms:EncryptionContext:aws:s3:arn":[
+                      "{{ .Values.replication.bucketARN }}/*"
+                    ]
+                  }
+              },
+              "Resource":[
+                "{{ .Values.replication.keyARN }}"
+              ]
+            }
+        ]
+      }
+---
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: RolePolicyAttachment
+metadata:
+  name: rolepolicyattachment-{{ .Values.suffix }}
+spec:
+  forProvider:
+    policyArnRef:
+      name: somepolicy
+    roleNameRef:
+      name: dci-bucket-replication-role-{{ .Values.suffix }}

@@ -1,0 +1,27 @@
+apiVersion: s3.aws.crossplane.io/v1alpha3
+kind: BucketPolicy
+metadata:
+  name: unauthorised-bucketpolicy
+spec:
+  forProvider:
+    region: {{ .Values.region }}
+    bucketNameRef:
+      name: basic-bucket
+    policy:
+      version: '2012-10-17'
+      statements:
+        - sid: "denyHTTP"
+          action:
+            - S3:GetObject
+          principal:
+            awsPrincipals:
+              - iamRoleArn: "*"
+              - iamUserArn: "*"
+          effect: Allow
+          condition:
+            - operatorKey: Bool
+              conditions:
+                - key: "aws:SecureTransport"
+                  booleanValue: false
+          resource:
+            - "arn:aws:s3:::collie-basic-bucket/*"

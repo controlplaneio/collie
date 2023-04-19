@@ -1,0 +1,21 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: dci-unauthorised-bucket
+  annotations:
+    # This will be the actual bucket name. It must be globally unique, so you
+    # probably want to change it before trying to apply this example.
+    crossplane.io/external-name: dci-unauthorised-bucket
+spec:
+  forProvider:
+    acl: private
+    locationConstraint: {{ .Values.region }}
+    publicAccessBlockConfiguration:
+      blockPublicAcls: false
+      blockPublicPolicy: false
+      ignorePublicAcls: false
+      restrictPublicBuckets: false
+    serverSideEncryptionConfiguration:
+      rules:
+        - applyServerSideEncryptionByDefault:
+            sseAlgorithm: "aws"

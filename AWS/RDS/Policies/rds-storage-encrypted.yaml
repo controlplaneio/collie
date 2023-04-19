@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: rds-storage-encrypted
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - RDSInstance
+      mutate: {}
+      name: rds-storage-encrypted
+      validate:
+        message: rds-storage-encrypted must be enabled. Set spec.forProvider.multiAZ.storageEncrypted
+        pattern:
+          spec:
+            forProvider:
+              storageEncrypted: true
+  validationFailureAction: enforce
+status:
+  ready: false

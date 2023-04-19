@@ -1,0 +1,59 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: authorised-bucket
+  annotations:
+    # This will be the actual bucket name. It must be globally unique, so you
+    # probably want to change it before trying to apply this example.
+    crossplane.io/external-name: authorised-bucket-{{ .Values.suffix }}
+spec:
+  forProvider:
+    notificationConfiguration:
+      topicConfigurations:
+        - ID: notification-one
+          events: [s3:ObjectCreated:*]
+          topicRef:
+            name: authorised-bucket-topic-{{ .Values.suffix }}
+    loggingConfiguration:
+      targetBucket: {{ .Values.loggingBucket }}
+      targetPrefix: logs
+    acl: private
+    locationConstraint: {{ .Values.region }}
+    publicAccessBlockConfiguration:
+      blockPublicAcls: true
+      blockPublicPolicy: true
+      ignorePublicAcls: true
+      restrictPublicBuckets: true
+    serverSideEncryptionConfiguration:
+      rules:
+        - applyServerSideEncryptionByDefault:
+            sseAlgorithm: aws:kms
+    versioningConfiguration:
+      status: Enabled
+    lifecycleConfiguration:
+      rules:
+        - abortIncompleteMultipartUpload:
+            daysAfterInitiation: 42
+          status: Enabled
+    replicationConfiguration:
+      roleRef:
+        name: dci-bucket-replication-role-{{ .Values.suffix }}
+      rules:
+        - deleteMarkerReplication:
+            status: Disabled
+          destination:
+            bucket: {{ .Values.replication.bucketARN }}
+            storageClass: STANDARD
+            encryptionConfiguration:
+              replicaKmsKeyId: "{{ .Values.replication.keyARN }}"
+              # key ref is broken, sets key id instead of ARN so AWS request fails
+              # replicaKmsKeyIdRef:
+              #   name: dci-bucket-replication-key-{{ .Values.suffix }}
+          filter:
+            prefix: ""
+          id: rule-1
+          priority: 1
+          sourceSelectionCriteria:
+            sseKmsEncryptedObjects:
+              status: Enabled
+          status: Enabled

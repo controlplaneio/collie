@@ -1,0 +1,38 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: replication-bucket
+  annotations:
+    # This will be the actual bucket name. It must be globally unique, so you
+    # probably want to change it before trying to apply this example.
+    crossplane.io/external-name: replication-bucket-{{ .Values.suffix }}
+spec:
+  forProvider:
+    acl: private
+    locationConstraint: {{ .Values.region }}
+    publicAccessBlockConfiguration:
+      blockPublicAcls: true
+      blockPublicPolicy: true
+      ignorePublicAcls: true
+      restrictPublicBuckets: true
+    versioningConfiguration:
+      status: Enabled
+    replicationConfiguration:
+      roleRef:
+        name: dci-bucket-replication-role-{{ .Values.suffix }}
+      rules:
+        - deleteMarkerReplication:
+            status: Disabled
+          destination:
+            bucket: {{ .Values.replication.bucketARN }}
+            storageClass: STANDARD
+            encryptionConfiguration:
+              replicaKmsKeyId: "{{ .Values.replication.keyARN }}"
+          filter:
+            prefix: ""
+          id: rule-1
+          priority: 1
+          sourceSelectionCriteria:
+            sseKmsEncryptedObjects:
+              status: Enabled
+          status: Enabled

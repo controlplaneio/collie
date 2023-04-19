@@ -1,0 +1,20 @@
+apiVersion: iam.aws.crossplane.io/v1beta1
+kind: Role
+metadata:
+  name: authorised-rds-role
+spec:
+  forProvider:
+    assumeRolePolicyDocument: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "",
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": "monitoring.rds.amazonaws.com"
+                },
+                "Action": "sts:AssumeRole"
+            }
+          ]
+      }

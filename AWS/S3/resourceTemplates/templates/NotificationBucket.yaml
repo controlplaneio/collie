@@ -1,0 +1,21 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: notification-bucket
+  annotations:
+    crossplane.io/external-name: notification-bucket-{{ .Values.suffix }}
+spec:
+  forProvider:
+    notificationConfiguration:
+      topicConfigurations:
+        - ID: notification-one
+          events: [s3:ObjectCreated:*]
+          topicRef:
+            name: notification-bucket-topic
+    acl: private
+    locationConstraint: {{ .Values.region }}
+    publicAccessBlockConfiguration:
+      blockPublicAcls: true
+      blockPublicPolicy: true
+      ignorePublicAcls: true
+      restrictPublicBuckets: true

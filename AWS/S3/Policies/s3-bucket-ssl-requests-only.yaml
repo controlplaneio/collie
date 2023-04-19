@@ -1,0 +1,59 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-bucket-ssl-requests-only
+spec:
+  rules:
+    - context:
+        - apiCall:
+            jmesPath: items[].spec.forProvider.bucketNameRef.name
+            urlPath: /apis/s3.aws.crossplane.io/v1alpha3/bucketpolicies/
+          name: bucketnameref
+      exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-ssl-requests-only-check-policy-exists
+      validate:
+        deny:
+          conditions:
+            all:
+              - key: '{{request.object.metadata.name}}'
+                operator: AnyNotIn
+                value: '{{bucketnameref}}'
+        message: 'BucketPolicy must exist for created bucket: {{request.object.metadata.name}} existing bucket policies are in place for the following buckets: {{bucketnameref}} '
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - BucketPolicy
+      mutate: {}
+      name: s3-bucket-ssl-requests-only-require-http-validate
+      validate:
+        message: All Bucket Policy must include deny http block
+        pattern:
+          spec:
+            forProvider:
+              policy:
+                ^(statements):
+                  - action:
+                      - S3:GetObject
+                    condition:
+                      - conditions:
+                          - booleanValue: false
+                            key: aws:SecureTransport
+                        operatorKey: Bool
+                    effect: Deny
+                    sid: denyHTTP
+  validationFailureAction: enforce
+status:
+  ready: false

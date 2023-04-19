@@ -1,0 +1,631 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /Users/brandtkeller/repos/DU/compliance-auditor
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 185
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 41
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 467
+    content: "\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 805
+    content: l
+  - delay: 68
+    content: s
+  - delay: 117
+    content: ' '
+  - delay: 136
+    content: d
+  - delay: 52
+    content: e
+  - delay: 84
+    content: m
+  - delay: 85
+    content: o
+  - delay: 404
+    content: /
+  - delay: 170
+    content: "\r\n\e[?2004l\rnamespace.yaml\t\toscal-component.yaml\tpod.fail.yaml\t\tpod.pass.yaml\r\n\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 1398
+    content: '#'
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: l
+  - delay: 40
+    content: e
+  - delay: 40
+    content: t
+  - delay: 40
+    content: ''''
+  - delay: 40
+    content: s
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: d
+  - delay: 40
+    content: e
+  - delay: 40
+    content: m
+  - delay: 40
+    content: o
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: a
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: s
+  - delay: 40
+    content: t
+  - delay: 40
+    content: a
+  - delay: 40
+    content: t
+  - delay: 40
+    content: i
+  - delay: 40
+    content: c
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: r
+  - delay: 40
+    content: e
+  - delay: 40
+    content: s
+  - delay: 40
+    content: o
+  - delay: 40
+    content: u
+  - delay: 40
+    content: r
+  - delay: 40
+    content: c
+  - delay: 40
+    content: e
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: f
+  - delay: 40
+    content: a
+  - delay: 40
+    content: i
+  - delay: 40
+    content: l
+  - delay: 40
+    content: /
+  - delay: 40
+    content: p
+  - delay: 40
+    content: a
+  - delay: 40
+    content: s
+  - delay: 40
+    content: s
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: s
+  - delay: 40
+    content: c
+  - delay: 40
+    content: e
+  - delay: 40
+    content: 'n'
+  - delay: 40
+    content: a
+  - delay: 40
+    content: r
+  - delay: 40
+    content: i
+  - delay: 40
+    content: o
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: w
+  - delay: 40
+    content: h
+  - delay: 40
+    content: e
+  - delay: 40
+    content: r
+  - delay: 40
+    content: e
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: t
+  - delay: 40
+    content: h
+  - delay: 40
+    content: e
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: c
+  - delay: 40
+    content: o
+  - delay: 40
+    content: 'n'
+  - delay: 40
+    content: t
+  - delay: 40
+    content: r
+  - delay: 40
+    content: o
+  - delay: 40
+    content: l
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: i
+  - delay: 40
+    content: s
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: l
+  - delay: 40
+    content: o
+  - delay: 40
+    content: o
+  - delay: 40
+    content: k
+  - delay: 40
+    content: i
+  - delay: 40
+    content: 'n'
+  - delay: 40
+    content: g
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: t
+  - delay: 40
+    content: o
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: v
+  - delay: 40
+    content: a
+  - delay: 40
+    content: l
+  - delay: 40
+    content: i
+  - delay: 40
+    content: d
+  - delay: 40
+    content: a
+  - delay: 40
+    content: t
+  - delay: 40
+    content: e
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: p
+  - delay: 40
+    content: o
+  - delay: 40
+    content: d
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: l
+  - delay: 40
+    content: a
+  - delay: 40
+    content: b
+  - delay: 40
+    content: e
+  - delay: 40
+    content: l
+  - delay: 40
+    content: ' '
+  - delay: 40
+    content: f
+  - delay: 40
+    content: o
+  - delay: 40
+    content: o
+  - delay: 40
+    content: '='
+  - delay: 40
+    content: b
+  - delay: 40
+    content: a
+  - delay: 40
+    content: r
+  - delay: 2138
+    content: "\r\n\e[?2004l\r\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 1492
+    content: c
+  - delay: 70
+    content: a
+  - delay: 191
+    content: t
+  - delay: 105
+    content: ' '
+  - delay: 250
+    content: d
+  - delay: 64
+    content: e
+  - delay: 246
+    content: mo/
+  - delay: 731
+    content: p
+  - delay: 172
+    content: o
+  - delay: 111
+    content: "\ad."
+  - delay: 900
+    content: f
+  - delay: 210
+    content: 'ail.yaml '
+  - delay: 1177
+    content: "\r\n\e[?2004l\r"
+  - delay: 5
+    content: "---\r\napiVersion: v1\r\nkind: Pod\r\nmetadata:\r\n  name: demo-pod\r\n  namespace: foo\r\n  labels: \r\n    foo: bar2\r\nspec:\r\n  containers:\r\n    - command:\r\n        - sleep\r\n        - \"3600\"\r\n      image: busybox\r\n      name: pods-simple-container\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 1419
+    content: "\r\n\e[?2004l\r\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 2075
+    content: .
+  - delay: 62
+    content: /
+  - delay: 293
+    content: c
+  - delay: 104
+    content: o
+  - delay: 87
+    content: m
+  - delay: 163
+    content: 'pliance-auditor '
+  - delay: 947
+    content: e
+  - delay: 209
+    content: x
+  - delay: 209
+    content: e
+  - delay: 138
+    content: c
+  - delay: 130
+    content: u
+  - delay: 111
+    content: t
+  - delay: 84
+    content: e
+  - delay: 188
+    content: ' '
+  - delay: 941
+    content: d
+  - delay: 78
+    content: e
+  - delay: 252
+    content: mo/
+  - delay: 818
+    content: o
+  - delay: 87
+    content: s
+  - delay: 97
+    content: c
+  - delay: 221
+    content: 'al-component.yaml '
+  - delay: 1328
+    content: '-'
+  - delay: 113
+    content: r
+  - delay: 100
+    content: ' '
+  - delay: 933
+    content: d
+  - delay: 60
+    content: e
+  - delay: 229
+    content: mo/
+  - delay: 1170
+    content: p
+  - delay: 176
+    content: o
+  - delay: 115
+    content: d
+  - delay: 352
+    content: .
+  - delay: 150
+    content: f
+  - delay: 244
+    content: 'ail.yaml '
+  - delay: 1365
+    content: "\r\n\e[?2004l\r"
+  - delay: 627
+    content: "\r\nApplying 1 policy to 1 resource... \r\n(Total number of result count may vary as the policy is mutated by Kyverno. To check the mutated policy please try with log level 5)\r\n"
+  - delay: 14
+    content: "UUID: 42C2FFDC-5F05-44DF-A67F-EEC8660AEFFD\r\n\tResources Passing: 0\r\n\tResources Failing: 1\r\n\tStatus: Fail\r\n"
+  - delay: 6
+    content: "\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 1600
+    content: c
+  - delay: 84
+    content: a
+  - delay: 152
+    content: t
+  - delay: 141
+    content: ' '
+  - delay: 422
+    content: c
+  - delay: 96
+    content: o
+  - delay: 78
+    content: m
+  - delay: 129
+    content: "\apliance"
+  - delay: 931
+    content: _
+  - delay: 314
+    content: r
+  - delay: 259
+    content: 'eport-09-19-2022-08\:28\:54.yaml '
+  - delay: 783
+    content: "\r\n\e[?2004l\r- result: Fail\r\n  source-requirements:\r\n    control-id: ID-1\r\n    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod\r\n      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  quis\r\n      nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum  dolore\r\n      eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt\r\n      in culpa qui officia deserunt mollit anim id est laborum.\r\n    rules:\r\n    - exclude:\r\n        resources: {}\r\n      generate:\r\n        clone: {}\r\n      match:\r\n        resources:\r\n          kinds:\r\n          - Pod\r\n          namespaces:\r\n          - foo\r\n      mutate: {}\r\n      name: ID-1\r\n      validate:\r\n        message: Every pod in namespace 'foo' should have 'foo=bar' label\r\n        pattern:\r\n          metadata:\r\n            labels:\r\n              foo: bar\r\n    uuid: 42C2FFDC-5F05-44DF-A67F-EEC8660AEFFD\r\n\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 756
+    content: r
+  - delay: 140
+    content: m
+  - delay: 70
+    content: ' '
+  - delay: 848
+    content: c
+  - delay: 93
+    content: o
+  - delay: 66
+    content: m
+  - delay: 959
+    content: "\apliance"
+  - delay: 1281
+    content: _
+  - delay: 407
+    content: 'report-09-19-2022-08\:28\:54.yaml '
+  - delay: 2044
+    content: "\r\n\e[?2004l\r"
+  - delay: 6
+    content: "\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 970
+    content: c
+  - delay: 84
+    content: a
+  - delay: 197
+    content: t
+  - delay: 148
+    content: ' '
+  - delay: 903
+    content: d
+  - delay: 51
+    content: e
+  - delay: 223
+    content: mo/
+  - delay: 422
+    content: p
+  - delay: 168
+    content: o
+  - delay: 65
+    content: d
+  - delay: 772
+    content: .
+  - delay: 282
+    content: p
+  - delay: 168
+    content: 'ass.yaml '
+  - delay: 1731
+    content: "\r\n\e[?2004l\r---\r\napiVersion: v1\r\nkind: Pod\r\nmetadata:\r\n  name: demo-pod\r\n  namespace: foo\r\n  labels: \r\n    foo: bar\r\nspec:\r\n  containers:\r\n    - command:\r\n        - sleep\r\n        - \"3600\"\r\n      image: busybox\r\n      name: pods-simple-container\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 1131
+    content: "\r\n\e[?2004l\r\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 1099
+    content: .
+  - delay: 66
+    content: /
+  - delay: 153
+    content: c
+  - delay: 177
+    content: o
+  - delay: 79
+    content: m
+  - delay: 161
+    content: 'pliance-auditor '
+  - delay: 994
+    content: e
+  - delay: 223
+    content: x
+  - delay: 210
+    content: e
+  - delay: 140
+    content: c
+  - delay: 158
+    content: u
+  - delay: 94
+    content: t
+  - delay: 79
+    content: e
+  - delay: 146
+    content: ' '
+  - delay: 638
+    content: d
+  - delay: 51
+    content: e
+  - delay: 241
+    content: mo/
+  - delay: 395
+    content: o
+  - delay: 67
+    content: s
+  - delay: 77
+    content: c
+  - delay: 213
+    content: 'al-component.yaml '
+  - delay: 848
+    content: '-'
+  - delay: 81
+    content: r
+  - delay: 101
+    content: ' '
+  - delay: 454
+    content: d
+  - delay: 68
+    content: e
+  - delay: 241
+    content: mo/
+  - delay: 870
+    content: p
+  - delay: 152
+    content: o
+  - delay: 367
+    content: d
+  - delay: 584
+    content: .
+  - delay: 257
+    content: p
+  - delay: 134
+    content: 'ass.yaml '
+  - delay: 1674
+    content: "\r\n\e[?2004l\r"
+  - delay: 520
+    content: "\r\nApplying 1 policy to 1 resource... \r\n(Total number of result count may vary as the policy is mutated by Kyverno. To check the mutated policy please try with log level 5)\r\n"
+  - delay: 12
+    content: "UUID: 42C2FFDC-5F05-44DF-A67F-EEC8660AEFFD\r\n\tResources Passing: 1\r\n\tResources Failing: 0\r\n\tStatus: Pass\r\n"
+  - delay: 7
+    content: "\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 2507
+    content: c
+  - delay: 85
+    content: a
+  - delay: 170
+    content: t
+  - delay: 134
+    content: ' '
+  - delay: 394
+    content: c
+  - delay: 165
+    content: o
+  - delay: 95
+    content: m
+  - delay: 152
+    content: "\apliance"
+  - delay: 933
+    content: _
+  - delay: 269
+    content: 'report-09-19-2022-08\:29\:25.yaml '
+  - delay: 1292
+    content: "\r\n\e[?2004l\r"
+  - delay: 5
+    content: "- result: Pass\r\n  source-requirements:\r\n    control-id: ID-1\r\n    description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod\r\n      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  quis\r\n      nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum  dolore\r\n      eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt\r\n      in culpa qui officia deserunt mollit anim id est laborum.\r\n    rules:\r\n    - exclude:\r\n        resources: {}\r\n      generate:\r\n        clone: {}\r\n      match:\r\n        resources:\r\n          kinds:\r\n          - Pod\r\n          namespaces:\r\n          - foo\r\n      mutate: {}\r\n      name: ID-1\r\n      validate:\r\n        message: Every pod in namespace 'foo' should have 'foo=bar' label\r\n        pattern:\r\n          metadata:\r\n            labels:\r\n              foo: bar\r\n    uuid: 42C2FFDC-5F05-44DF-A67F-EEC8660AEFFD\r\n\e[?2004hbrandts-MacBook-Pro:compliance-auditor brandtkeller$ "
+  - delay: 3334
+    content: "\e[?2004l\r\r\nlogout\r\n"

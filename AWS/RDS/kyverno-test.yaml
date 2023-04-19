@@ -1,0 +1,131 @@
+name: tests
+policies:
+  - ./Policies/rds-enhanced-monitoring-enabled.yaml
+  - ./Policies/rds-instance-default-admin-check.yaml
+  - ./Policies/rds-instance-deletion-protection-enabled.yaml
+  - ./Policies/rds-instance-public-access-check.yaml
+  - ./Policies/rds-logging-enabled.yaml
+  - ./Policies/rds-multi-az-support.yaml
+  - ./Policies/rds-storage-encrypted.yaml
+
+resources:
+  - ./Resources/BasicRDSInstance.yaml
+  - ./Resources/AuthorisedRDSInstance.yaml
+
+results:
+  # enhanced monitoring
+  - policy: rds-enhanced-monitoring-enabled
+    rule: rds-enhanced-monitoring-enabled
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: fail
+
+  - policy: rds-enhanced-monitoring-enabled
+    rule: rds-enhanced-monitoring-enabled
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  # default admin check
+  - policy: rds-instance-default-admin-check
+    rule: rds-admin-not-admin
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  - policy: rds-instance-default-admin-check
+    rule: rds-admin-not-postgres
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: fail
+
+  - policy: rds-instance-default-admin-check
+    rule: rds-admin-not-default
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  - policy: rds-instance-default-admin-check
+    rule: rds-admin-not-admin
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  - policy: rds-instance-default-admin-check
+    rule: rds-admin-not-postgres
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  - policy: rds-instance-default-admin-check
+    rule: rds-admin-not-default
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+
+  # rds-instance-deletion-protection-enabled
+  - policy: rds-instance-deletion-protection-enabled
+    rule: rds-instance-deletion-protection-enabled
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: fail
+
+  - policy: rds-instance-deletion-protection-enabled
+    rule: rds-instance-deletion-protection-enabled
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  # rds-instance-public-access-check
+  - policy: rds-instance-public-access-check
+    rule: rds-instance-public-access-check
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  - policy: rds-instance-public-access-check
+    rule: rds-instance-public-access-check
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: fail
+
+  # rds-logging-enabled
+  - policy: rds-logging-enabled
+    rule: rds-logging-enabled
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  - policy: rds-logging-enabled
+    rule: rds-logging-enabled
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: fail
+
+  # rds-multi-az-support
+  - policy: rds-multi-az-support
+    rule: rds-multi-az-support
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+  - policy: rds-multi-az-support
+    rule: rds-multi-az-support
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: fail
+
+  # rds-storage-encrypted
+  - policy: rds-storage-encrypted
+    rule: rds-storage-encrypted
+    resource: authorised-rdsinstance
+    kind: RDSInstance
+    result: pass
+
+
+  - policy: rds-storage-encrypted
+    rule: rds-storage-encrypted
+    resource: basic-rdsinstance
+    kind: RDSInstance
+    result: fail

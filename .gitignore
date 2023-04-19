@@ -1,0 +1,16 @@
+# ignore terraform files
+*.tfstate
+.terraform.lock.hcl
+.terraform
+terraform.tfstate.backup
+*.tfvars
+
+# cleanup lula work
+/Tools/out/*
+/Tools/Policies/
+/AWS/S3/out/
+
+Resources
+values.secret.yaml
+
+.lulapolicies

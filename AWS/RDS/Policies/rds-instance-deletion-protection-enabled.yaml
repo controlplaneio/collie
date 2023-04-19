@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: rds-instance-deletion-protection-enabled
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - database.aws.crossplane.io/v1beta1/RDSInstance
+      mutate: {}
+      name: rds-instance-deletion-protection-enabled
+      validate:
+        message: rds instance deletion protection must be enabled . Set spec.forProvider.deletionProtection
+        pattern:
+          spec:
+            forProvider:
+              deletionProtection: true
+  validationFailureAction: enforce
+status:
+  ready: false

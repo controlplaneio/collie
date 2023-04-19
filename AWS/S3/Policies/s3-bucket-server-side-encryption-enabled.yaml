@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  creationTimestamp: null
+  name: s3-bucket-server-side-encryption-enabled
+spec:
+  rules:
+    - exclude:
+        resources: {}
+      generate:
+        clone: {}
+      match:
+        resources:
+          kinds:
+            - s3.aws.crossplane.io/v1beta1/Bucket
+      mutate: {}
+      name: s3-bucket-server-side-encryption-enabled
+      validate:
+        message: 's3 bucket encryption must be enabled. Set spec.forProvider.serverSideEncryptionConfiguration::'
+        pattern:
+          spec:
+            forProvider:
+              serverSideEncryptionConfiguration:
+                rules:
+                  - applyServerSideEncryptionByDefault:
+                      sseAlgorithm: AES256 | aws:kms
+  validationFailureAction: enforce
+status:
+  ready: false
