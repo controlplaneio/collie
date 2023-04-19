@@ -84,7 +84,7 @@ require (
 	github.com/distribution/distribution v2.7.1+incompatible // indirect
 	github.com/docker/cli v20.10.12+incompatible // indirect
 	github.com/docker/distribution v2.8.0+incompatible // indirect
-	github.com/docker/docker v20.10.12+incompatible // indirect
+	github.com/docker/docker v20.10.24+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.6.4 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/envoyproxy/go-control-plane v0.10.2-0.20220325020618-49ff273808a1 // indirect
