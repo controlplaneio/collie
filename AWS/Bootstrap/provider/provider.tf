@@ -5,11 +5,6 @@ terraform {
       version = "~> 4.20.1"
     }
 
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.6.0"
-    }
-
     kubectl = {
       source  = "gavinbunney/kubectl"
       version = "~> 1.14.0"
@@ -27,12 +22,6 @@ terraform {
 provider "aws" {
   profile = var.aws_profile
   region  = var.aws_region
-}
-
-provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
 }
 
 provider "kubectl" {

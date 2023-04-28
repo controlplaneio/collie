@@ -29,5 +29,8 @@ fi
 cd "$SCRIPT_DIR/provider"
 terraform destroy -auto-approve -var="oidc_provider=$OIDC_PROVIDER" -var="suffix=$SUFFIX"
 
+cd "$SCRIPT_DIR/helm"
+terraform destroy -auto-approve
+
 cd "$SCRIPT_DIR/cluster"
 terraform destroy -auto-approve
