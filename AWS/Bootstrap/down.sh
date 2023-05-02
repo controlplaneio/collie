@@ -2,10 +2,13 @@
 
 set -eo pipefail
 
-while getopts ":d" o; do
+while getopts ":dp" o; do
   case "${o}" in
     d)
       CREATE_DEMO_RESOURCES="true"
+      ;;
+    p)
+      KEEP_CLUSTER="true"
       ;;
     *)
       ;;
@@ -29,8 +32,11 @@ fi
 cd "$SCRIPT_DIR/provider"
 terraform destroy -auto-approve -var="oidc_provider=$OIDC_PROVIDER" -var="suffix=$SUFFIX"
 
-cd "$SCRIPT_DIR/helm"
+cd "$SCRIPT_DIR/crossplane"
 terraform destroy -auto-approve
 
-cd "$SCRIPT_DIR/cluster"
-terraform destroy -auto-approve
+if [ "$KEEP_CLUSTER" != "true" ]
+then
+  cd "$SCRIPT_DIR/cluster"
+  terraform destroy -auto-approve
+fi

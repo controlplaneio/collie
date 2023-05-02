@@ -7,7 +7,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "$SCRIPT_DIR/cluster"
 terraform init
 
-cd "$SCRIPT_DIR/helm"
+cd "$SCRIPT_DIR/crossplane"
 terraform init
 
 cd "$SCRIPT_DIR/provider"

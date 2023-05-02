@@ -52,7 +52,7 @@ resource "kubernetes_manifest" "aws_provider" {
     }
 
     spec = {
-      package = "xpkg.upbound.io/crossplane-contrib/provider-aws:v0.37.1"
+      package = "xpkg.upbound.io/crossplane-contrib/provider-aws:v0.39.0"
       controllerConfigRef = {
         name = "irsa-controllerconfig"
       }
@@ -80,4 +80,23 @@ spec:
   credentials:
     source: InjectedIdentity
   YAML
+}
+
+resource "helm_release" "kyverno" {
+  depends_on = [
+    kubectl_manifest.aws_provider_config
+  ]
+  name = "kyverno"
+
+  repository = "https://kyverno.github.io/kyverno/"
+  chart      = "kyverno"
+  version    = "v2.7.2"
+
+  namespace        = "kyverno-system"
+  create_namespace = true
+
+  set {
+    name  = "replicaCount"
+    value = 3
+  }
 }
