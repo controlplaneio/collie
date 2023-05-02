@@ -23,7 +23,7 @@ module "eks" {
   source                               = "terraform-aws-modules/eks/aws"
   version                              = "18.31.2"
   cluster_name                         = "${var.project_name}-eks-${lower(random_string.suffix.result)}"
-  cluster_version                      = "1.24"
+  cluster_version                      = "1.25"
   cluster_endpoint_private_access      = true
   cluster_endpoint_public_access       = true
   create_cloudwatch_log_group          = true

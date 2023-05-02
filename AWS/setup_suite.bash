@@ -6,10 +6,6 @@ setup_suite() {
   then
     cd "$ROOT/AWS/Bootstrap" || exit 1
     ./up.sh -d >&3
-    # There is sometimes an issue where kyverno cannot see the CRDs 
-    # created by crossplane. The sleep here is to try and give everything 
-    # time to initialise. In future we will make this better.
-    sleep 900
   fi
 
   cd "$ROOT" || exit 1

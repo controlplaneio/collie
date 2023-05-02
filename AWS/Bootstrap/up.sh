@@ -19,7 +19,7 @@ aws eks update-kubeconfig --name "$(terraform output -raw cluster_id)" --alias c
 OIDC_PROVIDER="$(terraform output -raw oidc_provider)"
 SUFFIX="$(terraform output -raw suffix)"
 
-cd "$SCRIPT_DIR/helm"
+cd "$SCRIPT_DIR/crossplane"
 terraform apply -auto-approve
 
 cd "$SCRIPT_DIR/provider"
