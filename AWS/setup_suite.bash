@@ -12,6 +12,9 @@ setup_suite() {
     sleep 900
   fi
 
+  cd "$ROOT/AWS/Bootstrap/cluster" || exit 1
+  export SUFFIX="$(terraform output -raw suffix)"
+
   cd "$ROOT" || exit 1
   make generate-resources >&3
   make generate-policies >&3
