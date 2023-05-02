@@ -31,7 +31,7 @@ EOF
 metadata:
   name: encrypted-bucket-kms
   annotations:
-    crossplane.io/external-name: collie-encrypted-bucket-kms
+    crossplane.io/external-name: collie-encrypted-bucket-kms-$SUFFIX
   labels:
     test: $TESTNAME
 EOF
@@ -48,7 +48,7 @@ metadata:
   labels:
     test: $TESTNAME
   annotations:
-    crossplane.io/external-name: collie-encrypted-bucket-kms-aes256
+    crossplane.io/external-name: collie-encrypted-bucket-kms-aes256-$SUFFIX
 spec:
   forProvider:
     serverSideEncryptionConfiguration:

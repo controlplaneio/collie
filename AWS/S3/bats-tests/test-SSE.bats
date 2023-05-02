@@ -31,7 +31,7 @@ EOF
 metadata:
   name: encrypted-bucket-sse
   annotations:
-    crossplane.io/external-name: collie-encrypted-bucket-sse
+    crossplane.io/external-name: collie-encrypted-bucket-sse-$SUFFIX
   labels:
     test: $TESTNAME
 EOF
@@ -46,7 +46,7 @@ EOF
 metadata:
   name: encrypted-bucket-aes256
   annotations:
-    crossplane.io/external-name: collie-encrypted-bucket-aes256
+    crossplane.io/external-name: collie-encrypted-bucket-aes256-$SUFFIX
   labels:
     test: $TESTNAME
 spec:
