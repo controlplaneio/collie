@@ -2,7 +2,7 @@
 
 `Collie`: Toolkit for securing cloud controller provisioned infrastructure and demonstrating compliance
 
-![Collie Logo](docs/assets/collie_logo.png)
+<div style="text-align:center"><img src="docs/assets/collie_logo.png" width="60%"/></div>
 
 Collie is a POC project demonstrating how infrastructure provisioned by cloud infrastructure controllers can be simultaneously secured and validated for compliance. It provides NIST 800-53 rev.5 aligned libraries of Kyverno Policy to secure Infrastructure provisioned by [Crossplane](https://www.crossplane.io/) [Community Provider](https://marketplace.upbound.io/providers/crossplane-contrib/provider-aws/), generated from OSCAL documents, and leverages Lula to use the same OSCAL documents to validate compliance.
 
